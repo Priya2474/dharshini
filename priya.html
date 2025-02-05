@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click the Moving Box</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .game-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            background-color: white;
+            border: 2px solid black;
+        }
+        .box {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            position: absolute;
+            cursor: pointer;
+        }
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="box" id="box"></div>
+    </div>
+    
+    <script>
+        const box = document.getElementById('box');
+        const scoreDisplay = document.getElementById('score');
+        let score = 0;
+
+        function moveBox() {
+            const container = document.querySelector('.game-container');
+            const maxX = container.clientWidth - box.clientWidth;
+            const maxY = container.clientHeight - box.clientHeight;
+
+            const randomX = Math.floor(Math.random() * maxX);
+            const randomY = Math.floor(Math.random() * maxY);
+
+            box.style.left = `${randomX}px`;
+            box.style.top = `${randomY}px`;
+        }
+
+        box.addEventListener('click', () => {
+            score++;
+            scoreDisplay.textContent = score;
+            moveBox();
+        });
+
+        moveBox(); // Initial movement
+    </script>
+</body>
+</html>
